@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\Api\Alat;
 use App\Controllers\Api\Kategori;
 use App\Controllers\Frontend\Dashboard;
 use App\Controllers\Migrate;
@@ -24,10 +25,16 @@ $routes->environment('production', static function ($routes) {
 
 $routes->group('api', ['namespace' => ''], static function ($routes) {
     $routes->resource('kategori', ['controller' => Kategori::class, 'websafe' => 1]);
+    $routes->resource('alat', ['controller' => Alat::class, 'websafe' => 1]);
 });
 
-$routes->get('alat', [Dashboard::class, 'alat']);
 
+
+$routes->group('alat',  static function ($routes) {
+    $routes->get('', [Dashboard::class, 'alat']);
+    $routes->get('tambah', [Dashboard::class, 'alatForm']);
+    $routes->get('edit/(:num)', [Dashboard::class, 'alatForm']);
+});
 
 $routes->group('kategori',  static function ($routes) {
     $routes->get('', [Dashboard::class, 'kategori']);

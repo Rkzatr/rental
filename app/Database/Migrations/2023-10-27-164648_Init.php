@@ -26,6 +26,7 @@ class Init extends Migration
             $table->unsignedBigInteger("harga");
             $table->text("deskripsi");
             $table->timestamps();
+            $table->softDeletes();
         });
         DB::schema()->create("rental", function (Blueprint $table) {
             $table->id();
@@ -37,12 +38,14 @@ class Init extends Migration
             $table->unsignedBigInteger("id_customer");
             $table->unsignedBigInteger("denda");
             $table->timestamps();
+            $table->softDeletes();
         });
 
         DB::schema()->create("rental_detail", function (Blueprint $table) {
             $table->unsignedBigInteger("id_rental");
             $table->unsignedBigInteger("id_alat");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
