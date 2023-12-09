@@ -31,7 +31,7 @@ class InitSeeder extends Seeder
         $data = [
             [
                 "nama" => "Kamera Nikon D5100",
-                "kode" => "",
+                "kode" => "A001",
                 "id_kategori" => "1",
                 "gambar" => "http:\/\/rental.project\/img\/alat\/1.jpg",
                 "harga" => "1000000",
@@ -41,7 +41,7 @@ class InitSeeder extends Seeder
             ],
             [
                 "nama" => "Kamera Cannon 1300D",
-                "kode" => "",
+                "kode" => "A002",
                 "id_kategori" => "1",
                 "gambar" => "http:\/\/rental.project\/img\/alat\/2.jpg",
                 "harga" => "100000",
@@ -51,7 +51,7 @@ class InitSeeder extends Seeder
             ],
             [
                 "nama" => "Lensa Fix Nikon",
-                "kode" => "",
+                "kode" => "B001",
                 "id_kategori" => "2",
                 "gambar" => "http:\/\/rental.project\/img\/alat\/3.jpg",
                 "harga" => "75000",
@@ -61,7 +61,7 @@ class InitSeeder extends Seeder
             ],
             [
                 "nama" => "Lensa Fix Cannon",
-                "kode" => "",
+                "kode" => "B002",
                 "id_kategori" => "2",
                 "gambar" => "http:\/\/rental.project\/img\/alat\/4.jpg",
                 "harga" => "60000",
@@ -71,7 +71,7 @@ class InitSeeder extends Seeder
             ],
             [
                 "nama" => "Lensa Tele Cannon",
-                "kode" => "",
+                "kode" => "B003",
                 "id_kategori" => "2",
                 "gambar" => "http:\/\/rental.project\/img\/alat\/5.jpg",
                 "harga" => "100000",
@@ -81,7 +81,7 @@ class InitSeeder extends Seeder
             ],
             [
                 "nama" => "Lensa Tele Nikon",
-                "kode" => "",
+                "kode" => "B004",
                 "id_kategori" => "2",
                 "gambar" => "http:\/\/rental.project\/img\/alat\/6.png",
                 "harga" => "100000",
@@ -91,7 +91,7 @@ class InitSeeder extends Seeder
             ],
             [
                 "nama" => "Flash Eksternal ",
-                "kode" => "",
+                "kode" => "C001",
                 "id_kategori" => "3",
                 "gambar" => "http:\/\/rental.project\/img\/alat\/7.jpeg",
                 "harga" => "25000",
@@ -101,7 +101,7 @@ class InitSeeder extends Seeder
             ],
             [
                 "nama" => "Tripod",
-                "kode" => "",
+                "kode" => "D001",
                 "id_kategori" => "4",
                 "gambar" => "http:\/\/rental.project\/img\/alat\/8.jpg",
                 "harga" => "25000",

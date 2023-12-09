@@ -30,7 +30,6 @@ class Init extends Migration
         });
         DB::schema()->create("rental", function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("id_alat");
             $table->date("tgl_sewa");
             $table->date("tgl_kembali");
             $table->unsignedBigInteger("status");

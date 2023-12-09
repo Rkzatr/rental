@@ -18,7 +18,7 @@ abstract class BaseDashboard extends BaseController
         $this->view = Services::renderer();
 
         $this->view->setData([
-           'page' => "dashboard" 
+            'page' => "dashboard"
         ]);
 
         $this->view->setData([
@@ -32,6 +32,16 @@ abstract class BaseDashboard extends BaseController
                     'id' => 'manajemen-kategori',
                     'icon' => 'layer-group',
                     'url' => base_url('/kategori')
+                ],
+                'Katalog' => [
+                    'id' => 'katalog',
+                    'icon' => 'layer-group',
+                    'url' => base_url('/katalog')
+                ],
+                'Keranjang' => [
+                    'id' => 'keranjang',
+                    'icon' => 'layer-group',
+                    'url' => base_url('/keranjang')
                 ],
             ]
         ]);
