@@ -41,3 +41,16 @@ $routes->group('kategori',  static function ($routes) {
     $routes->get('tambah', [Dashboard::class, 'kategoriForm']);
     $routes->get('edit/(:num)', [Dashboard::class, 'kategoriForm']);
 });
+$routes->group('katalog',  static function ($routes) {
+    $routes->get('', [Dashboard::class, 'katalog']);
+    // $routes->get('tambah', [Dashboard::class, 'katalogForm']);
+    // $routes->get('edit/(:num)', [Dashboard::class, 'katalogForm']);
+});
+$routes->group('keranjang',  static function ($routes) {
+    $routes->get('', [Dashboard::class, 'keranjang']);
+    // $routes->get('tambah', [Dashboard::class, 'keranjangForm']);
+    // $routes->get('edit/(:num)', [Dashboard::class, 'keranjangForm']);
+});
+$routes->group('profil',  static function ($routes) {
+    $routes->get('', [Dashboard::class, 'profil']);
+});

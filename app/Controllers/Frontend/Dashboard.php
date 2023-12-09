@@ -47,4 +47,25 @@ class Dashboard extends BaseDashboard
         ]);
         return $this->view->render('Dashboard/alat-form');
     }
+    public function katalog()
+    {
+        $this->view->setData([
+            'page' => 'katalog',
+        ]);
+        return $this->view->render('Dashboard/katalog');
+    }
+    public function keranjang()
+    {
+        $this->view->setData([
+            'page' => 'keranjang',
+        ]);
+        return $this->view->render('Dashboard/keranjang');
+    }
+    public function profil()
+    {
+        $this->view->setData([
+            'page' => 'profil',
+        ]);
+        return $this->view->render('Dashboard/profil');
+    }
 }

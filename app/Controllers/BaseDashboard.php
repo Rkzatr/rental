@@ -35,13 +35,18 @@ abstract class BaseDashboard extends BaseController
                 ],
                 'Katalog' => [
                     'id' => 'katalog',
-                    'icon' => 'layer-group',
+                    'icon' => 'th',
                     'url' => base_url('/katalog')
                 ],
                 'Keranjang' => [
                     'id' => 'keranjang',
-                    'icon' => 'layer-group',
+                    'icon' => 'shopping-cart',
                     'url' => base_url('/keranjang')
+                ],
+                'Profil' => [
+                    'id' => 'profil',
+                    'icon' => 'id-card',
+                    'url' => base_url('/profil')
                 ],
             ]
         ]);
