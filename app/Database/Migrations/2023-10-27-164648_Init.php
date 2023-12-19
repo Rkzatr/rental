@@ -25,6 +25,7 @@ class Init extends Migration
             $table->text("gambar");
             $table->unsignedBigInteger("harga");
             $table->text("deskripsi");
+            $table->unsignedBigInteger("stok");
             $table->timestamps();
             $table->softDeletes();
         });

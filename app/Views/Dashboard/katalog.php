@@ -8,8 +8,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="katalog-wrapper">
-        </div>
+        <div class="katalog-wrapper"></div>
     </div>
 </div>
 <?= $this->section('script') ?>
@@ -18,25 +17,41 @@ $(document).ready(async function() {
     await cloud.add(baseUrl + 'api/alat', {
         name: "alat"
     });
-    cloud
-        .addCallback("alat", (data) => {
-            $(".katalog-wrapper").empty();
-            data.forEach((alat) => {
-                $(".katalog-wrapper").append(`<div class="katalog-item">
+    cloud.addCallback("alat", (data) => {
+        $(".katalog-wrapper").empty();
+        data.forEach((alat) => {
+            $(".katalog-wrapper").append(`<div class="katalog-item ${
+alat.stok > 0 ? "" : "disabled"
+}" data-id="${
+alat.id
+}">
                 <div class="image">
-                    <img src="${alat.gambar}" alt="">
-                    <span class="kategori">${alat.kategori.label}</span>
+                    <img src="${
+alat.gambar
+}" alt="">
+                    <span class="kategori">${
+alat.kategori.label
+}</span>
                 </div>
                 <div class="desc text-center">
-                    <p class="title">${alat.nama}</p>
-                    <p class="price">Rp. ${alat.harga}</p>
-                    <p class="stok-wrapper">Stok: <span class="stok">1</span></p>
-                    <button type="button" class="btn btn-success btn-sm"><i class="fas fa-cart-arrow-down"></i></button>
+                    <p class="title">${
+alat.nama
+}</p>
+                    <p class="price">Rp. ${
+alat.harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+}</p>
+                    <p class="stok-wrapper">Stok: <span class="stok">${
+alat.stok
+}</span></p>
+                    <button type="button" class="btn btn-success btn-sm sewa ${
+alat.stok > 0 ? "" : "disabled"
+}" data-id="${
+alat.id
+}"><i class="fas fa-cart-arrow-down"></i></button>
                 </div>
             </div>`);
-            });
-        })
-        .pull("alat");
+        });
+    }).pull("alat");
 });
 </script>
 <?= $this->endSection(); ?>

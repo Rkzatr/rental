@@ -20,6 +20,7 @@ class Alat extends Model
         'gambar',
         'harga',
         'deskripsi',
+        'stok',
     ];
 
     public function kategori(): HasOne
@@ -33,7 +34,7 @@ class Alat extends Model
     protected static function booted(): void
     {
         static::created(function (Alat $alat) {
-            $alat->kode = range("A", "Z")[$alat->id_kategori - 1]  . sprintf("%03d", Alat::where('id_kategori', $alat->id_kategori)->count());
+            $alat->kode = range("A", "Z")[$alat->id_kategori - 1] . sprintf("%03d", Alat::where('id_kategori', $alat->id_kategori)->count());
             $alat->save();
         });
     }

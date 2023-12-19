@@ -37,7 +37,7 @@ class Alat extends BaseApi
     public function afterUpdate(&$data)
     {
         $file = $this->request->getFile('gambar');
-        if ($file) {
+        if ($file->isValid()) {
             $fileName = $data->id . '.' . $file->getExtension();
             $file->move(FCPATH . 'img/alat', $fileName, true);
             $data->gambar = base_url('img/alat/' . $fileName);
