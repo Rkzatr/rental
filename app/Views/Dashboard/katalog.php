@@ -30,7 +30,8 @@ $(document).ready(async function() {
                 <div class="desc text-center">
                     <p class="title">${alat.nama}</p>
                     <p class="price">Rp. ${alat.harga}</p>
-                    <button type="button" class="btn btn-success btn-sm">+ Keranjang</button>
+                    <p class="stok-wrapper">Stok: <span class="stok">1</span></p>
+                    <button type="button" class="btn btn-success btn-sm"><i class="fas fa-cart-arrow-down"></i></button>
                 </div>
             </div>`);
             });

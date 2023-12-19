@@ -63,6 +63,13 @@
 
 .katalog-item .desc button {
   position: absolute;
-  left: 50%;
-  transform: translate(-50%, 30%);
+  right: 0.6rem;
+  bottom: -2.5rem;
+}
+
+.katalog-item .stok-wrapper {
+  position: absolute;
+  left: 1rem;
+  font-size: small;
+  bottom: -3.5rem;
 }
