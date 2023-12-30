@@ -23,14 +23,16 @@ class Rental extends BaseApi
     public function afterCreate(&$data)
     {
         $alat = $this->request->getVar("alat");
-        foreach ($alat as $v) {
+        $qty = $this->request->getVar("qty");
+        foreach ($alat as $i => $v) {
             $detail = new RentalDetail();
             $detail->id_alat = $v;
             $detail->id_rental = $data->id;
+            $detail->qty = $qty[$i];
             $detail->save();
 
             $a = Alat::find($v);
-            $a->stok--;
+            $a->stok -= $qty[$i];
             $a->save();
         }
     }

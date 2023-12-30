@@ -12,7 +12,7 @@ class Rental extends Model
 
     protected $table = 'rental';
     protected $fillable = [
-        'tgl_sewa', 'tgl_kembali', 'status', 'harga', 'id_customer', 'denda',
+        'tgl_sewa', 'tgl_kembali', 'status', 'harga', 'id_customer', 'denda', 'file'
     ];
 
     public function detail(): HasMany

@@ -37,6 +37,7 @@ class Init extends Migration
             $table->unsignedBigInteger("harga");
             $table->unsignedBigInteger("id_customer");
             $table->unsignedBigInteger("denda");
+            $table->text("file");
             $table->timestamps();
             $table->softDeletes();
         });
@@ -44,6 +45,7 @@ class Init extends Migration
         DB::schema()->create("rental_detail", function (Blueprint $table) {
             $table->unsignedBigInteger("id_rental");
             $table->unsignedBigInteger("id_alat");
+            $table->unsignedBigInteger("qty");
             $table->timestamps();
             $table->softDeletes();
         });

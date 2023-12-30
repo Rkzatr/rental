@@ -12,7 +12,7 @@ class RentalDetail extends Model
 
     protected $table = 'rental_detail';
     protected $fillable = [
-        'id_alat', 'id_rental',
+        'id_alat', 'id_rental', 'qty'
     ];
 
     public function alat(): HasOne

@@ -129,8 +129,10 @@ $("body").on("click", ".btn-co", function (e) {
               .off("click")
               .on("click", () => {
                 let items = [];
+                let qty = [];
                 $.each($("input[name=items]:checked"), function (i, v) {
                   items.push($(this).val());
+                  qty.push(keranjangBarang.items[$(this).val()]);
                 });
                 $.ajax({
                   type: "POST",
@@ -140,6 +142,7 @@ $("body").on("click", ".btn-co", function (e) {
                     tgl_kembali: end.format("YYYY-MM-DD"),
                     harga: getTotal() * day,
                     alat: items,
+                    qty: qty,
                   },
                   success: function (r) {
                     let keranjang = JSON.parse(localStorage.getItem("keranjang"));
