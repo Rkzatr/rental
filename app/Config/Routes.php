@@ -2,6 +2,7 @@
 
 use App\Controllers\Api\Alat;
 use App\Controllers\Api\Kategori;
+use App\Controllers\Api\Rental;
 use App\Controllers\Frontend\Dashboard;
 use App\Controllers\Migrate;
 use CodeIgniter\Router\RouteCollection;
@@ -26,31 +27,35 @@ $routes->environment('production', static function ($routes) {
 $routes->group('api', ['namespace' => ''], static function ($routes) {
     $routes->resource('kategori', ['controller' => Kategori::class, 'websafe' => 1]);
     $routes->resource('alat', ['controller' => Alat::class, 'websafe' => 1]);
+    $routes->resource('rental', ['controller' => Rental::class, 'websafe' => 1]);
 });
 
 
 
-$routes->group('alat',  static function ($routes) {
+$routes->group('alat', static function ($routes) {
     $routes->get('', [Dashboard::class, 'alat']);
     $routes->get('tambah', [Dashboard::class, 'alatForm']);
     $routes->get('edit/(:num)', [Dashboard::class, 'alatForm']);
 });
 
-$routes->group('kategori',  static function ($routes) {
+$routes->group('kategori', static function ($routes) {
     $routes->get('', [Dashboard::class, 'kategori']);
     $routes->get('tambah', [Dashboard::class, 'kategoriForm']);
     $routes->get('edit/(:num)', [Dashboard::class, 'kategoriForm']);
 });
-$routes->group('katalog',  static function ($routes) {
+$routes->group('katalog', static function ($routes) {
     $routes->get('', [Dashboard::class, 'katalog']);
     // $routes->get('tambah', [Dashboard::class, 'katalogForm']);
     // $routes->get('edit/(:num)', [Dashboard::class, 'katalogForm']);
 });
-$routes->group('keranjang',  static function ($routes) {
+$routes->group('keranjang', static function ($routes) {
     $routes->get('', [Dashboard::class, 'keranjang']);
     // $routes->get('tambah', [Dashboard::class, 'keranjangForm']);
     // $routes->get('edit/(:num)', [Dashboard::class, 'keranjangForm']);
 });
-$routes->group('profil',  static function ($routes) {
+$routes->group('rental', static function ($routes) {
+    $routes->get('', [Dashboard::class, 'rental']);
+});
+$routes->group('profil', static function ($routes) {
     $routes->get('', [Dashboard::class, 'profil']);
 });

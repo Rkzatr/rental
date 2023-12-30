@@ -4,7 +4,8 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Manajemen Alat</h1>
-    <a href="<?= base_url('alat/tambah') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah Alat</a>
+    <a href="<?= base_url('alat/tambah') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-plus fa-sm text-white-50"></i> Tambah Alat</a>
 </div>
 <!-- Content Row -->
 <div class="row">
@@ -19,6 +20,7 @@
                                 <th scope="col">Gambar</th>
                                 <th scope="col">Kategori</th>
                                 <th scope="col">Nama</th>
+                                <th scope="col">Stok</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -39,37 +41,40 @@
             url: baseUrl + 'api/alat?wrap=data'
         },
         columns: [{
-                data: 'gambar',
-                width: "20%",
-                render: function(data, type) {
-                    if (type === 'display') {
-                        return '<img src="' + data + '" height="100" />';
-                    }
-
-                    return data;
+            data: 'gambar',
+            width: "20%",
+            render: function (data, type) {
+                if (type === 'display') {
+                    return '<img src="' + data + '" height="100" />';
                 }
-            },
-            {
-                data: 'kategori.label'
-            },
-            {
-                data: 'nama'
-            },
-            {
-                data: 'id',
-                width: "15%",
-                render: function(data, type) {
-                    if (type === 'display') {
-                        return `<a class="btn btn-warning mr-2 btn-edit" href="${baseUrl + 'alat/edit/' + data}"><i class="fas fa-fw fa-pen"></i></a><button type="button" class="btn btn-danger btn-delete" data-id="${data}"><i class="fas fa-fw fa-trash"></i></button>`;
-                    }
 
-                    return data;
+                return data;
+            }
+        },
+        {
+            data: 'kategori.label'
+        },
+        {
+            data: 'nama'
+        },
+        {
+            data: 'stok'
+        },
+        {
+            data: 'id',
+            width: "15%",
+            render: function (data, type) {
+                if (type === 'display') {
+                    return `<a class="btn btn-warning mr-2 btn-edit" href="${baseUrl + 'alat/edit/' + data}"><i class="fas fa-fw fa-pen"></i></a><button type="button" class="btn btn-danger btn-delete" data-id="${data}"><i class="fas fa-fw fa-trash"></i></button>`;
                 }
-            },
+
+                return data;
+            }
+        },
         ]
     });
 
-    $('.init-datatable').on('click', '.btn-delete', function() {
+    $('.init-datatable').on('click', '.btn-delete', function () {
         const id = $(this).data('id');
 
         Swal.fire({
@@ -85,7 +90,7 @@
                 $.ajax({
                     url: baseUrl + 'api/alat/' + id,
                     type: 'DELETE',
-                    success: function() {
+                    success: function () {
                         Toast.fire({
                             icon: 'success',
                             title: 'Data berhasil di hapus!'

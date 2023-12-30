@@ -17,7 +17,7 @@ class Dashboard extends BaseDashboard
     {
         $this->view->setData([
             'page' => 'manajemen-kategori',
-            'items' => Kategori::all()
+            'items' => Kategori::all(),
         ]);
         return $this->view->render('Dashboard/kategori');
     }
@@ -25,7 +25,7 @@ class Dashboard extends BaseDashboard
     {
         $this->view->setData([
             'page' => 'manajemen-kategori',
-            'item' => Kategori::find($id)
+            'item' => Kategori::find($id),
         ]);
         return $this->view->render('Dashboard/kategori-form');
     }
@@ -34,7 +34,7 @@ class Dashboard extends BaseDashboard
     {
         $this->view->setData([
             'page' => 'manajemen-alat',
-            'items' => Alat::all()
+            'items' => Alat::all(),
         ]);
         return $this->view->render('Dashboard/alat');
     }
@@ -60,6 +60,13 @@ class Dashboard extends BaseDashboard
             'page' => 'keranjang',
         ]);
         return $this->view->render('Dashboard/keranjang');
+    }
+    public function rental()
+    {
+        $this->view->setData([
+            'page' => 'rental',
+        ]);
+        return $this->view->render('Dashboard/rental');
     }
     public function profil()
     {

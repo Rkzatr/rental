@@ -69,8 +69,9 @@ class BaseApi extends BaseController
         $this->afterCreate($data);
         return $this->respond([
             'messages' => [
-                'success' => 'data baru berhasil di tambahkan'
+                'success' => 'data baru berhasil di tambahkan',
             ],
+            'data' => $data,
         ]);
     }
 
@@ -107,8 +108,8 @@ class BaseApi extends BaseController
             $this->afterUpdate($data);
             return $this->respond([
                 'messages' => [
-                    'success' => 'data berhasil di ubah'
-                ]
+                    'success' => 'data berhasil di ubah',
+                ],
             ]);
         }
         return $this->failNotFound('Data tidak ditemukan');

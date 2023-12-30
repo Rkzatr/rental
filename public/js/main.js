@@ -1,4 +1,8 @@
 $("body").on("click", ".katalog-item", function (e) {
+  if ($(e.target).hasClass("sewa") || $(e.target).parent().hasClass("sewa")) {
+    e.preventDefault();
+    return;
+  }
   let alat = cloud.get("alat").find((a) => a.id == $(e.currentTarget).data("id"));
   console.log(alat);
   $(".slide-image img").attr("src", alat.gambar);
@@ -43,6 +47,14 @@ $("body").on("click", ".sewa", async function (e) {
     store[alat.id] = jumlah;
     localStorage.setItem("keranjang", JSON.stringify(store));
   }
+});
+
+$("body > div.slide-wrapper").on("click", function (e) {
+  if ($(e.target).closest(".slide").length > 0) {
+    e.preventDefault();
+    return;
+  }
+  $(".slide-close").trigger("click");
 });
 
 $(document).ready(async function () {
