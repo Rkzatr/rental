@@ -1,44 +1,3 @@
-$("body").on("click", '.btn-upload', function () {
-  $(".swiper .content")
-    .empty()
-    .append($("template#upload").html())
-    .promise()
-    .then((e) => {
-      const id = $(this).data("id");
-      const upload = $("#upload-form").dropzone({
-        paramName: "bukti",
-        resizeMimeType: "image/jpeg",
-        url: baseUrl + "api/rental/bukti",
-        init: function () {
-          this.on("error", (file, message) => {
-            Toast.fire({
-              icon: "error",
-              title: message.messages.bukti,
-            })
-          });
-          this.on("success", (file) => {
-            const filename = file.xhr.response;
-            Toast.fire({
-              icon: "success",
-              title: "Berhasil",
-            });
-            $("#upload-image").attr("src", baseUrl + "img/bukti/" + filename);
-            $("#rental-submit input[name=id]").val(id);
-            $("#rental-submit input[name=file]").val(filename);
-            $(e).find("#upload-form").fadeOut(400, (u) => {
-              $(u).remove();
-              $(e).find(".upload-result").removeClass("d-none");
-              $(e).find("#rental-submit").attr("action", baseUrl + "api/rental/" + id);
-              $(".btn-send").attr("disabled", false);
-            });
-          });
-        }
-      });
-    });
-  $(".swiper .control").empty().append($("template#upload-control").html());
-  $(".swiper-wrapper").fadeIn(400);
-});
-
 $("body").on("click", ".swiper .btn-close", function (e) {
   $(".swiper-wrapper").fadeOut(400, function () {
     $(this).removeClass("active");
@@ -105,14 +64,14 @@ $(document).ready(async function () {
         width: "15%",
         render: function (data, type, row) {
           const btnCancel = `<a class="btn btn-danger btn-sm mr-2 btn-cancel" href="#!" data-id="${data}"><i class="fas fa-fw fa-times"></i></a>`;
-          const btnUpload = `<a class="btn btn-primary btn-sm mr-2 btn-upload" href="#!" data-id="${data}"><i class="fas fa-fw fa-upload"></i></a>`;
+          const btnKonfirmasi = `<a class="btn btn-primary btn-sm mr-2 btn-konfirmasi" href="#!" data-id="${data}"><i class="fas fa-fw fa-check"></i></a>`;
           const btnView = `<a class="btn btn-success btn-sm mr-2 btn-view" href="#!" data-id="${data}"><i class="fas fa-fw fa-eye"></i></a>`;
 
           switch (row.status) {
             case 0:
-              return btnUpload + btnCancel;
+              return btnKonfirmasi + btnCancel;
             case 1:
-              return btnView + btnCancel;
+              return btnKonfirmasi + btnView + btnCancel;
             case 11:
               return '<span class="badge badge-danger">Rental Ditolak</span>';
             default:
@@ -127,23 +86,27 @@ $(document).ready(async function () {
   });
 });
 
-$("body").on("click", ".btn-send", function (e) {
-  const form = $("#rental-submit");
-  const data = {};
-  form.serializeArray().map(function (x) { data[x.name] = x.value; });
-  $.ajax({
-    url: form.attr("action"),
-    type: form.attr("method"),
-    data: data,
-    success: function (data) {
-      $(".btn-close").trigger("click");
-      cloud.pull("rental");
-      Toast.fire({
-        icon: "success",
-        title: "Berhasil mengupload bukti bayar",
-      });
-    },
-  })
+$("body").on("click", ".btn-konfirmasi", function (e) {
+  const id = $(this).data("id");
+  Swal.fire({
+    title: "Apakah anda yakin ingin mengkonfirmasi rental ini?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Ya",
+    cancelButtonText: "Tidak",
+  }).then((result) => {
+    if (result.isConfirmed == false) return;
+    $.ajax({
+      url: baseUrl + "api/rental/konfirmasi/" + id,
+      type: "GET",
+      success: function (data) {
+        cloud.pull("rental");
+        console.log(data);
+      },
+    });
+  });
 });
 
 $("body").on("click", ".btn-cancel", function (e) {
@@ -157,7 +120,7 @@ $("body").on("click", ".btn-cancel", function (e) {
     confirmButtonText: "Ya",
     cancelButtonText: "Tidak",
   }).then((result) => {
-    if (result.isConfirmed == false) return
+    if (result.isConfirmed == false) return;
     $.ajax({
       url: baseUrl + "api/rental/cancel/" + id,
       type: "GET",

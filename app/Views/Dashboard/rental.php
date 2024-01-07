@@ -92,6 +92,20 @@
             </div>
             <div class="col-md-6">
                 <form action="/file-upload" class="dropzone" id="upload-form"></form>
+                <div class="upload-result d-none">
+                    <div class="container">
+                        <div class="row">
+                            <img src="" id="upload-image" alt="uploaded" style="width: 100%;">
+                        </div>
+                        <div class="row">
+                            <form action="" method="post" id="rental-submit">
+                                <input type="hidden" name="id">
+                                <input type="hidden" name="file">
+                                <input type="hidden" name="status" value="1">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -100,6 +114,16 @@
     <div style="display: flex; justify-content: end; align-items: center; gap: .3rem;">
         <button type="button" class="btn btn-danger btn-sm btn-close">Batal</button>
         <button type="button" class="btn btn-primary btn-sm btn-send" disabled>Upload</button>
+    </div>
+</template>
+<template id="view-bukti">
+    <div class="container">
+        <img src="" alt="bukti" id="gambar-bukti" style="width: 100%;">
+    </div>
+</template>
+<template id="control-bukti">
+    <div style="display: flex; justify-content: end; align-items: center; gap: .3rem;">
+        <button type="button" class="btn btn-danger btn-sm btn-close">Tutup</button>
     </div>
 </template>
 <?= $this->section('script') ?>

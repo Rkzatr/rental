@@ -48,6 +48,16 @@ abstract class BaseDashboard extends BaseController
                     'icon' => 'receipt',
                     'url' => base_url('/rental'),
                 ],
+                'Konfirmasi Pembayaran' => [
+                    'id' => 'konfirmasi-pembayaran',
+                    'icon' => 'credit-card',
+                    'url' => base_url('/konfirmasi'),
+                ],
+                'Pengembalian Alat' => [
+                    'id' => 'pengembalian-alat',
+                    'icon' => 'exchange-alt',
+                    'url' => base_url('/pengembalian'),
+                ],
                 'Profil' => [
                     'id' => 'profil',
                     'icon' => 'id-card',

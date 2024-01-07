@@ -27,6 +27,10 @@ $routes->environment('production', static function ($routes) {
 $routes->group('api', ['namespace' => ''], static function ($routes) {
     $routes->resource('kategori', ['controller' => Kategori::class, 'websafe' => 1]);
     $routes->resource('alat', ['controller' => Alat::class, 'websafe' => 1]);
+    $routes->post('rental/bukti', [Rental::class, 'uploadBukti']);
+    $routes->get('rental/cancel/(:num)', [Rental::class, 'cancelRental']);
+    $routes->get('rental/konfirmasi/(:num)', [Rental::class, 'konfirmasiRental']);
+    $routes->get('rental/pengembalian/(:num)', [Rental::class, 'pengembalianRental']);
     $routes->resource('rental', ['controller' => Rental::class, 'websafe' => 1]);
 });
 
@@ -55,6 +59,12 @@ $routes->group('keranjang', static function ($routes) {
 });
 $routes->group('rental', static function ($routes) {
     $routes->get('', [Dashboard::class, 'rental']);
+});
+$routes->group('konfirmasi', static function ($routes) {
+    $routes->get('', [Dashboard::class, 'konfirmasi']);
+});
+$routes->group('pengembalian', static function ($routes) {
+    $routes->get('', [Dashboard::class, 'pengembalian']);
 });
 $routes->group('profil', static function ($routes) {
     $routes->get('', [Dashboard::class, 'profil']);

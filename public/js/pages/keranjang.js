@@ -161,7 +161,7 @@ $("body").on("click", ".btn-co", function (e) {
                       });
                     Toast.fire({
                       icon: "success",
-                      title: "Berhasilat!",
+                      title: "Berhasil!",
                     });
                     setTimeout(function () {
                       window.location.href = baseUrl + "rental";

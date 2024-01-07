@@ -68,6 +68,20 @@ class Dashboard extends BaseDashboard
         ]);
         return $this->view->render('Dashboard/rental');
     }
+    public function konfirmasi()
+    {
+        $this->view->setData([
+            'page' => 'konfirmasi-pembayaran',
+        ]);
+        return $this->view->render('Dashboard/konfirmasi');
+    }
+    public function pengembalian()
+    {
+        $this->view->setData([
+            'page' => 'pengembalian-alat',
+        ]);
+        return $this->view->render('Dashboard/pengembalian');
+    }
     public function profil()
     {
         $this->view->setData([
