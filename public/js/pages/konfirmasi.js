@@ -38,7 +38,7 @@ $(document).ready(async function () {
       },
       {
         data: "status",
-        render: function (data, type) {
+        render: function (data, type, row) {
           switch (data) {
             case 0:
               return '<span class="badge badge-warning">Menunggu Pembayaran</span>';
@@ -47,7 +47,7 @@ $(document).ready(async function () {
             case 2:
               return '<span class="badge badge-primary">Rental berjalan</span>';
             case 5:
-              return '<span class="badge badge-danger">Membayar Denda</span>';
+              return '<span class="badge badge-danger">Membayar Denda</span><br><small>Rp. ' + row.denda.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + '</small>';
             case 10:
               return '<span class="badge badge-success">Rental Selesai</span>';
             case 11:
@@ -65,6 +65,7 @@ $(document).ready(async function () {
         render: function (data, type, row) {
           const btnCancel = `<a class="btn btn-danger btn-sm mr-2 btn-cancel" href="#!" data-id="${data}"><i class="fas fa-fw fa-times"></i></a>`;
           const btnKonfirmasi = `<a class="btn btn-primary btn-sm mr-2 btn-konfirmasi" href="#!" data-id="${data}"><i class="fas fa-fw fa-check"></i></a>`;
+          const btnDenda = `<a class="btn btn-primary btn-sm mr-2 btn-denda" href="#!" data-id="${data}"><i class="fas fa-fw fa-check"></i></a>`;
           const btnView = `<a class="btn btn-success btn-sm mr-2 btn-view" href="#!" data-id="${data}"><i class="fas fa-fw fa-eye"></i></a>`;
 
           switch (row.status) {
@@ -72,6 +73,8 @@ $(document).ready(async function () {
               return btnKonfirmasi + btnCancel;
             case 1:
               return btnKonfirmasi + btnView + btnCancel;
+            case 5:
+              return btnDenda + btnView;
             case 11:
               return '<span class="badge badge-danger">Rental Ditolak</span>';
             default:
@@ -100,6 +103,28 @@ $("body").on("click", ".btn-konfirmasi", function (e) {
     if (result.isConfirmed == false) return;
     $.ajax({
       url: baseUrl + "api/rental/konfirmasi/" + id,
+      type: "GET",
+      success: function (data) {
+        cloud.pull("rental");
+        console.log(data);
+      },
+    });
+  });
+});
+$("body").on("click", ".btn-denda", function (e) {
+  const id = $(this).data("id");
+  Swal.fire({
+    title: "Apakah anda yakin user ini sudah membayar denda?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Ya",
+    cancelButtonText: "Tidak",
+  }).then((result) => {
+    if (result.isConfirmed == false) return;
+    $.ajax({
+      url: baseUrl + "api/rental/denda/" + id,
       type: "GET",
       success: function (data) {
         cloud.pull("rental");

@@ -13,9 +13,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url() ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url() ?>css/sb-admin-2.min.css" rel="stylesheet">
@@ -86,8 +84,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -99,7 +96,7 @@
                 <div class="modal-body">Pilih "Logout" di bawah jika Anda siap mengakhirinya saat ini.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="logout">Logout</a>
                 </div>
             </div>
         </div>
@@ -156,6 +153,8 @@
         <script src="<?= base_url() ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
         <!-- Custom scripts for all pages-->
+        <script src="<?= base_url() ?>js/jquery.waypoints.min.js"></script>
+        <script src="<?= base_url() ?>js/jquery.counterup.min.js"></script>
         <script src="<?= base_url() ?>js/sb-admin-2.min.js"></script>
 
         <!-- Page level plugins -->
@@ -166,27 +165,28 @@
         <!-- Page level custom scripts -->
 
         <script>
-        const cloud = new Puller();
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            }
-        });
+            const cloud = new Puller();
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
 
-        const dt = new DataTable('.init-datatables', {
-            responsive: true
-        });
-        const listMenu = <?= json_encode($menu) ?>;
-        const menuContainer = $('.menu-container');
-        const page = '<?= $page ?>';
-        const baseUrl = '<?= base_url() ?>';
+            const dt = new DataTable('.init-datatables', {
+                responsive: true
+            });
+            const listMenu = <?= json_encode($menu) ?>;
+            const menuContainer = $('.menu-container');
+            const page = '<?= $page ?>';
+            const baseUrl = '<?= base_url() ?>';
         </script>
+        <script src="<?= base_url() ?>js/pages/keranjang_var.js"></script>
         <script src="<?= base_url() ?>js/main.js"></script>
         <?= $this->renderSection('script') ?>
 </body>

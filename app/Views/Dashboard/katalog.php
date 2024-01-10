@@ -13,14 +13,14 @@
 </div>
 <?= $this->section('script') ?>
 <script>
-    $(document).ready(async function () {
-        await cloud.add(baseUrl + 'api/alat', {
-            name: "alat"
-        });
-        cloud.addCallback("alat", (data) => {
-            $(".katalog-wrapper").empty();
-            data.forEach((alat) => {
-                $(".katalog-wrapper").append(`<div class="katalog-item ${alat.stok > 0 ? "" : "disabled"
+$(document).ready(async function() {
+    await cloud.add(baseUrl + 'api/alat', {
+        name: "alat"
+    });
+    cloud.addCallback("alat", (data) => {
+        $(".katalog-wrapper").empty();
+        data.forEach((alat) => {
+            $(".katalog-wrapper").append(`<div class="katalog-item ${alat.stok > 0 ? "" : "disabled"
                     }" data-id="${alat.id
                     }">
                 <div class="image">
@@ -41,9 +41,9 @@
                     }"><i class="fas fa-cart-arrow-down"></i></button>
                 </div>
             </div>`);
-            });
-        }).pull("alat");
-    });
+        });
+    }).pull("alat");
+});
 </script>
 <?= $this->endSection(); ?>
 <?= $this->endSection() ?>

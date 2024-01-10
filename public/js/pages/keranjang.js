@@ -11,9 +11,7 @@ $("body").on("click", ".btn-hapus", function (e) {
   }).then((result) => {
     if (result.isConfirmed) {
       let id = $(this).data("id");
-      let keranjang = JSON.parse(localStorage.getItem("keranjang"));
-      delete keranjang[id];
-      localStorage.setItem("keranjang", JSON.stringify(keranjang));
+      keranjangBarang.removeItem(id);
       $(this)
         .closest(".keranjang-item")
         .fadeOut("normal", function () {
@@ -32,35 +30,24 @@ $("body").on("click", ".btn-kurang", function (e) {
     return false;
   }
   let id = $(this).data("id");
-  let keranjang = keranjangBarang.items;
-  keranjang[id]--;
-  localStorage.setItem("keranjang", JSON.stringify(keranjang));
-  $(this).closest(".keranjang-item").find(".k-qty").text(keranjang[id]);
+  keranjangBarang.subItem(id);
+  $(this).closest(".keranjang-item").find(".k-qty").text(keranjangBarang.getItem(id));
   let alat = cloud.get("alat").find((x) => x.id == id);
   $(this)
     .closest(".keranjang-item")
     .find(".k-price .nominal")
-    .text((alat.harga * keranjang[id]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+    .text((alat.harga * keranjangBarang.getItem(id)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
   updateTotal();
 });
 $("body").on("click", ".btn-tambah", function (e) {
   e.preventDefault();
   let alat = cloud.get("alat").find((x) => x.id == $(this).data("id"));
-  let keranjang = keranjangBarang.items;
-  if (keranjang[alat.id] == alat.stok) {
-    Toast.fire({
-      icon: "warning",
-      title: "Stok sudah mencapai batas!",
-    });
-    return false;
-  }
-  keranjang[alat.id] = (keranjang[alat.id] ?? 0) + 1;
-  localStorage.setItem("keranjang", JSON.stringify(keranjang));
-  $(this).closest(".keranjang-item").find(".k-qty").text(keranjang[alat.id]);
+  keranjangBarang.addItem(alat.id);
+  $(this).closest(".keranjang-item").find(".k-qty").text(keranjangBarang.getItem(alat.id));
   $(this)
     .closest(".keranjang-item")
     .find(".k-price .nominal")
-    .text((alat.harga * keranjang[alat.id]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+    .text((alat.harga * keranjangBarang.getItem(alat.id)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
   updateTotal();
 });
 
@@ -145,11 +132,9 @@ $("body").on("click", ".btn-co", function (e) {
                     qty: qty,
                   },
                   success: function (r) {
-                    let keranjang = JSON.parse(localStorage.getItem("keranjang"));
                     $.each($("input[name=items]:checked"), function (i, v) {
-                      delete keranjang[$(this).val()];
+                      keranjangBarang.removeItem($(this).val())
                     });
-                    localStorage.setItem("keranjang", JSON.stringify(keranjang));
                     $(this)
                       .closest(".keranjang-item")
                       .fadeOut("normal", function () {
@@ -218,6 +203,9 @@ $("body").on("click", ".btn-co", function (e) {
 $(document).ready(async function () {
   await cloud.add(baseUrl + "api/alat", {
     name: "alat",
+  });
+  await cloud.add(baseUrl + "me", {
+    name: "user",
   });
   $(".keranjang-wrapper").empty();
   $.each(keranjangBarang.items, function (id, qty) {

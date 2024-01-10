@@ -79,7 +79,7 @@ $(document).ready(async function () {
       },
       {
         data: "status",
-        render: function (data, type) {
+        render: function (data, type, row) {
           switch (data) {
             case 0:
               return '<span class="badge badge-warning">Menunggu Pembayaran</span>';
@@ -88,7 +88,7 @@ $(document).ready(async function () {
             case 2:
               return '<span class="badge badge-primary">Rental berjalan</span>';
             case 5:
-              return '<span class="badge badge-danger">Membayar Denda</span>';
+              return '<span class="badge badge-danger">Membayar Denda</span><br><small>Rp. ' + row.denda.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + '</small>';
             case 10:
               return '<span class="badge badge-success">Rental Selesai</span>';
             case 11:

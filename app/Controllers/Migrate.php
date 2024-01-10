@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\Shield\Entities\User;
 use Exception;
 use Throwable;
 
@@ -33,6 +34,26 @@ class Migrate extends BaseController
             $migrate->setNamespace('App')->latest();
 
             $seeder->call('InitSeeder');
+
+            $users = auth()->getProvider();
+            $user = new User([
+                'username' => 'admin',
+                'nama'     => 'Admin',
+                'email'    => 'admin@gmail.com',
+                'password' => 123456,
+            ]);
+            $users->save($user);
+            $user = $users->findById($users->getInsertID());
+            $user->addGroup('admin');
+            $user = new User([
+                'username' => 'user',
+                'nama'     => 'User',
+                'email'    => 'user@gmail.com',
+                'password' => 123456,
+            ]);
+            $users->save($user);
+            $user = $users->findById($users->getInsertID());
+            $users->addToDefaultGroup($user);
         } catch (Throwable $e) {
             throw new Exception($e->getMessage());
         }

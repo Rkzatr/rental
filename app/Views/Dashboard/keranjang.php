@@ -58,7 +58,6 @@
 </template>
 
 <?= $this->section('script') ?>
-<script src="<?= base_url('js/pages/keranjang_var.js') ?>"></script>
 <script src="<?= base_url('js/pages/keranjang.js') ?>"></script>
 <?= $this->endSection() ?>
 <?= $this->endSection() ?>

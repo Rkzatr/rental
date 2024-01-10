@@ -6,6 +6,7 @@ use App\Controllers\Api\Rental;
 use App\Controllers\Frontend\Dashboard;
 use App\Controllers\Migrate;
 use CodeIgniter\Router\RouteCollection;
+use Config\Services;
 
 /**
  * @var RouteCollection $routes
@@ -13,6 +14,11 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', [Dashboard::class, 'index']);
 
 service('auth')->routes($routes);
+
+$routes->get('me', function () {
+    $response = Services::response();
+    return $response->setStatusCode(200)->setJSON(auth()->user());
+});
 
 $routes->environment('development', static function ($routes) {
     $routes->get('migrate', [Migrate::class, 'index']);
@@ -31,6 +37,7 @@ $routes->group('api', ['namespace' => ''], static function ($routes) {
     $routes->get('rental/cancel/(:num)', [Rental::class, 'cancelRental']);
     $routes->get('rental/konfirmasi/(:num)', [Rental::class, 'konfirmasiRental']);
     $routes->get('rental/pengembalian/(:num)', [Rental::class, 'pengembalianRental']);
+    $routes->get('rental/denda/(:num)', [Rental::class, 'dendaRental']);
     $routes->resource('rental', ['controller' => Rental::class, 'websafe' => 1]);
 });
 

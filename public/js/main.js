@@ -25,8 +25,10 @@ $("body").on("click", ".slide-close", function (e) {
   }, 100);
 });
 $("body").on("click", ".sewa", async function (e) {
-  let alat = cloud.get("alat").find((a) => a.id == $(e.currentTarget).data("id"));
-  let val = alat.id in JSON.parse(localStorage.getItem("keranjang") ?? "{}") ? JSON.parse(localStorage.getItem("keranjang"))[alat.id] : 1;
+  const id = $(e.currentTarget).data("id");
+  let alat = cloud.get("alat").find((a) => a.id == id);
+  let val = 1;
+  if (keranjangBarang.getItem(id)) val = keranjangBarang.getItem(id);
   console.log(val);
   const { value: jumlah } = await Swal.fire({
     title: "Mau sewa berapa?",
@@ -42,10 +44,7 @@ $("body").on("click", ".sewa", async function (e) {
     inputValue: val,
   });
   if (jumlah) {
-    console.log(alat, jumlah);
-    let store = localStorage.getItem("keranjang") ? JSON.parse(localStorage.getItem("keranjang")) : {};
-    store[alat.id] = jumlah;
-    localStorage.setItem("keranjang", JSON.stringify(store));
+    keranjangBarang.setItem(id, jumlah);
   }
 });
 
@@ -59,15 +58,12 @@ $("body > div.slide-wrapper").on("click", function (e) {
 
 $(document).ready(async function () {
   await cloud.add(baseUrl + "api/alat", { name: "temp" });
-  let myStore = localStorage.getItem("keranjang") ? JSON.parse(localStorage.getItem("keranjang")) : {};
-  $.each(myStore, function (i, v) {
+  await cloud.add(baseUrl + "me", {
+    name: "user"
+  });
+  $.each(keranjangBarang.items, function (i, v) {
     let temp100 = cloud.get("temp").find((a) => a.id == i);
-    if (temp100.stok > 0) {
-      if (v > temp100.stok) myStore[i] = temp100.stok;
-    } else {
-      myStore[i] = 0;
-    }
-    localStorage.setItem("keranjang", JSON.stringify(myStore));
+    if (v > temp100.stok) keranjangBarang.setItem(i, temp100.stok);
   });
   $(".nav-item").removeClass("active");
 

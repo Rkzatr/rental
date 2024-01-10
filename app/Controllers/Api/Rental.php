@@ -7,6 +7,7 @@ use App\Models\Alat;
 use App\Models\Rental as DataModel;
 use App\Models\RentalDetail;
 use CodeIgniter\Files\File;
+use Illuminate\Support\Carbon;
 
 class Rental extends BaseApi
 {
@@ -16,6 +17,9 @@ class Rental extends BaseApi
     {
         $data = $this->modelName::with('detail');
         if ($this->request->getVar('status')) $data = $data->where('status', $this->request->getVar('status'));
+        if (auth()->user()->inGroup('user')) {
+            $data->where('id_customer', auth()->id());
+        }
         if ($this->request->getVar('wrap')) {
             return $this->respond([$this->request->getVar('wrap') => $data->get()]);
         }
@@ -24,7 +28,7 @@ class Rental extends BaseApi
 
     public function beforeCreate(&$data)
     {
-        $data->id_customer = 1;
+        $data->id_customer = auth()->id();
     }
     public function afterCreate(&$data)
     {
@@ -92,6 +96,29 @@ class Rental extends BaseApi
         ]);
     }
     function pengembalianRental(int $id)
+    {
+        $data = DataModel::with("detail")->find($id);
+        $denda = 20000;
+
+        if (intval(Carbon::now()->format('Ymd')) > intval($data->tgl_kembali->format('Ymd'))) {
+            $data->status = 5;
+            $data->denda = $denda * $data->tgl_kembali->diffInDays(Carbon::now());
+        } else {
+            $data->status = 10;
+        }
+
+        foreach ($data->detail as $detail) {
+            $detail->alat->stok += $detail->qty;
+            $detail->alat->save();
+        }
+
+        $data->save();
+        return $this->respond([
+            'message' => "Berhasil",
+            'data' => $data
+        ]);
+    }
+    function dendaRental(int $id)
     {
         $data = DataModel::find($id);
         $data->status = 10;
