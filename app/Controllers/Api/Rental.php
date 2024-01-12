@@ -42,6 +42,8 @@ class Rental extends BaseApi
             $detail->save();
 
             $a = Alat::find($v);
+
+            // untuk mengurangi stok
             $a->stok -= $qty[$i];
             $a->save();
         }
@@ -90,6 +92,14 @@ class Rental extends BaseApi
         $data = DataModel::find($id);
         $data->status = 2;
         $data->save();
+
+
+        foreach ($data->detail as $detail) {
+            // untuk mengembalikan stok
+            $detail->alat->stok += $detail->qty;
+            $detail->alat->save();
+        }
+
         return $this->respond([
             'message' => "Berhasil",
             'data' => $data
@@ -108,6 +118,7 @@ class Rental extends BaseApi
         }
 
         foreach ($data->detail as $detail) {
+            // untuk mengembalikan stok
             $detail->alat->stok += $detail->qty;
             $detail->alat->save();
         }
@@ -123,6 +134,7 @@ class Rental extends BaseApi
         $data = DataModel::find($id);
         $data->status = 10;
         $data->save();
+
         return $this->respond([
             'message' => "Berhasil",
             'data' => $data
