@@ -81,10 +81,11 @@
                 $.ajax({
                     url: baseUrl + 'api/kategori/' + id,
                     type: 'DELETE',
-                    success: function() {
+                    success: function(res) {
+                        console.log(res);
                         Toast.fire({
-                            icon: 'success',
-                            title: 'Data berhasil di hapus!'
+                            icon: Object.keys(res.messages)[0],
+                            title: Object.values(res.messages)[0]
                         })
                         myTable.ajax.reload();
                     }

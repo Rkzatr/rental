@@ -39,4 +39,27 @@ class Kategori extends BaseApi
             $data->save();
         }
     }
+
+    public function delete($id = null)
+    {
+        if ($data = $this->modelName::with("alat")->find($id)) {
+            if ($this->modelName::find($id)->loadCount("alat")->alat_count > 0) {
+                return $this->respond([
+                    'messages' => [
+                        'error' => 'Kategori masih memiliki alat, harap hapus semua alat pada kategori ini terlebih dahulu',
+                    ],
+                    'data' => $data
+                ]);
+            }
+            $data->delete();
+
+            return $this->respond([
+                'messages' => [
+                    'success' => 'Kategori berhasil dihapus',
+                ],
+                'data' => $data
+            ]);
+        }
+        return $this->failNotFound('Data tidak ditemukan');
+    }
 }

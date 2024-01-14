@@ -132,9 +132,16 @@ class BaseApi extends BaseController
     public function delete($id = null)
     {
         if ($data = $this->modelName::find($id)) {
+            $this->beforeDelete($data);
             $data->delete();
+            $this->afterDelete($data);
 
-            return $this->respondDeleted($data);
+            return $this->respond([
+                'messages' => [
+                    'success' => 'Data berhasil dihapus',
+                ],
+                'data' => $data
+            ]);
         }
         return $this->failNotFound('Data tidak ditemukan');
     }
@@ -151,5 +158,13 @@ class BaseApi extends BaseController
         if (in_array($format, ['json', 'xml'], true)) {
             $this->format = $format;
         }
+    }
+
+    public function beforeDelete(&$data)
+    {
+    }
+
+    public function afterDelete(&$data)
+    {
     }
 }
