@@ -2,6 +2,7 @@
 
 use App\Controllers\Api\Alat;
 use App\Controllers\Api\Kategori;
+use App\Controllers\Api\Profil;
 use App\Controllers\Api\Rental;
 use App\Controllers\Frontend\Dashboard;
 use App\Controllers\Migrate;
@@ -39,6 +40,8 @@ $routes->group('api', ['namespace' => ''], static function ($routes) {
     $routes->get('rental/pengembalian/(:num)', [Rental::class, 'pengembalianRental']);
     $routes->get('rental/denda/(:num)', [Rental::class, 'dendaRental']);
     $routes->resource('rental', ['controller' => Rental::class, 'websafe' => 1]);
+    $routes->post('profil/save', [Profil::class, 'save']);
+    $routes->post('profil/password', [Profil::class, 'password']);
 });
 
 

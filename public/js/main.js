@@ -79,3 +79,15 @@ $(document).ready(async function () {
 
   $(`.nav-item[data-id='${page}']`).addClass("active");
 });
+
+$("body").on("click", ".btn-password", function (e) {
+  e.preventDefault();
+  const inputEl = $(this).closest(".form-group").find("input");
+  if (inputEl.attr("type") == "password") {
+    inputEl.attr("type", "text");
+    $(this).find("i").addClass("fa-eye-slash").removeClass("fa-eye");
+  } else {
+    inputEl.attr("type", "password");
+    $(this).find("i").addClass("fa-eye").removeClass("fa-eye-slash");
+  }
+});
