@@ -15,7 +15,7 @@
     <li class="nav-item active" data-id="dashboard">
         <a class="nav-link" href="<?= base_url() ?>">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Menu Utama</span></a>
+            <span>Dashboard</span></a>
     </li>
     <hr class="sidebar-divider">
 
